@@ -1,5 +1,6 @@
-{% for obj in object_list%}
-	{{obj.content}}
-	{{obj.user}}
-	{{obj.timestamp|timesince}} ago</p><br/>
+{% for obj in object_list %}
+	<h1>{{obj.content}}</h1>
+	<p>{{obj.user}}</p>
+	<p>{{obj.timestamp|timesince}} ago</p>
+	<hr>
 {% endfor %}
