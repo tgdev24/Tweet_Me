@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+{%block content%}
 <h1>{{object.content}}</h1>
 <p>{{object.user}}</p>
 <p>{{object.timestamp|timesince}} ago</p>
+{%endblock%}

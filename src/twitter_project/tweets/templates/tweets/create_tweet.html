@@ -1,1 +1,5 @@
+{% extends "base.html" %}
+{% block hello %}Create Tweet | {{block.super}}{%endblock%}
+{%block content%}
 {% include "tweets/form.html" with form=form btn_title="Tweet"%}
+{%endblock%}

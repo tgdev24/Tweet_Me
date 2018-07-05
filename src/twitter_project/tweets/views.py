@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django import forms
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.forms.utils import ErrorList
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,7 +18,6 @@ class TweetCreateView(FormUserNeededMixin, CreateView):
 	form_class = TweetModelForm
 	template_name = 'tweets/create_tweet.html'
 	# success_url = '/tweet/create/'
-
 	# def form_valid(self, form):
 	# 	if(self.request.user.is_authenticated()):
 	# 		form.instance.user = self.request.user
@@ -47,8 +47,18 @@ class TweetDetailView(DetailView):
 	# 	return Tweet.objects.get(id=1)
 
 class TweetListView(ListView):
-	queryset = Tweet.objects.all()
+	# queryset = Tweet.objects.all()
 	template_name = "tweets/list_view.html"
+	def get_queryset(self, *args, **kwargs):
+		qs = Tweet.objects.all()
+		print(self.request.GET)
+		query = self.request.GET.get("q", None)
+		if query is not None:
+			#make sure to have 2 underscores
+			qs = qs.filter(
+				Q(content__icontains=query) |
+				Q(user__username__icontains=query))
+		return qs
 
 	# how we knew that variables are object_list and object
 	def get_context_data(self, *args, **kwargs):
