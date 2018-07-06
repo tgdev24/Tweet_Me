@@ -1,16 +1,26 @@
 {% extends "base.html" %}
 {%block content%}
-{% include "tweets/tweet_search.html" %}
-{% for obj in object_list %}
-	<h1>{{obj.content}}</h1>
-	<p>{{obj.user}}</p>
-	<p>{{obj.timestamp|timesince}} ago</p>
-	<hr>
-{% empty %}
-	{%if request.GET.q %}
-	<p>No tweets found.</p>
-	{% else %}
-	<p>No Tweets yet.</p>
-	{% endif %}
-{% endfor %}
+{% include "tweets/tweet_search.html" %}<br/>
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-2">
+		{% for obj in object_list %}
+		<div class="media">
+			{% if obj.image %}
+			<img class="mr-3" src="..." alt="Generic placeholder image">
+			{%endif%}
+			<div class="media-body">
+				<h5 class="mt-0">{{obj.content}}</h5><br>
+				via {{obj.user}} | {{obj.timestamp|timesince}} ago | <a href="{{obj.get_absolute_url}}">View</a> 
+			</div>
+		</div>
+		<hr>
+		{% empty %}
+		{%if request.GET.q %}
+		<p>No tweets found.</p>
+		{% else %}
+		<p>No Tweets yet.</p>
+		{% endif %}
+		{% endfor %}
+	</div>
+</div>
 {%endblock%}
