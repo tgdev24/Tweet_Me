@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {%block content%}
-<h1>{{object.content}}</h1>
-<p>{{object.user}}</p>
-<p>{{object.timestamp|timesince}} ago</p>
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-2">
+		<div class="media mt-4">
+			{% if object.image %}
+			<img class="mr-3" src="..." alt="Generic placeholder image">
+			{%endif%}
+			<div class="media-body">
+				<h5 class="mt-0">{{object.content}}</h5><br>
+				via {{object.user}} | {{object.timestamp|timesince}} ago 
+			</div>
+		</div>
+		<hr>
+	</div>
+</div>
 {%endblock%}
